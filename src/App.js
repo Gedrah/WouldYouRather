@@ -13,32 +13,44 @@ import LeaderBoardPage from "./pages/LeaderBoardPage";
 import PollPage from "./pages/PollPage";
 
 import './App.css';
+import { getInitialData } from "./api";
+import { getUsers } from "./actions/users";
 
-function App() {
-  return (
-    <div className="App">
-        <Router>
-            <Navbar/>
-            <Switch>
-                <Route path="/login">
-                    <LoginPage/>
-                </Route>
-                <Route path="/question">
-                    <QuestionPage/>
-                </Route>
-                <Route path="/leaderboard">
-                    <LeaderBoardPage/>
-                </Route>
-                <Route path="/poll">
-                    <PollPage/>
-                </Route>
-                <Route path="/">
-                    <HomePage/>
-                </Route>
-            </Switch>
-        </Router>
-    </div>
-  );
+class App extends React.Component {
+    render() {
+        return (
+            <div className="App">
+                <Router>
+                    <Navbar/>
+                    <Switch>
+                        <Route path="/login">
+                            <LoginPage users=""/>
+                        </Route>
+                        <Route path="/question">
+                            <QuestionPage/>
+                        </Route>
+                        <Route path="/leaderboard">
+                            <LeaderBoardPage/>
+                        </Route>
+                        <Route path="/poll">
+                            <PollPage/>
+                        </Route>
+                        <Route path="/">
+                            <HomePage/>
+                        </Route>
+                    </Switch>
+                </Router>
+            </div>
+        );
+    }
 }
 
-export default App;
+export function handleInitialData() {
+    return (dispatch) => {
+        return getInitialData().then((action) => {
+            dispatch(getUsers(action.users))
+        });
+    }
+}
+
+export default App
