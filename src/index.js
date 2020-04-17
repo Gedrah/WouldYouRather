@@ -4,19 +4,17 @@ import './index.css';
 import AppComponent from './App';
 import * as serviceWorker from './serviceWorker';
 import {Provider, connect} from "react-redux";
-import {applyMiddleware, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import users from "./reducer/users";
-import { BrowserRouter } from "react-router-dom";
+import authUser from "./reducer/auth";
 import thunk from 'redux-thunk';
 
-const store = createStore(users, applyMiddleware(thunk));
+const store = createStore(combineReducers({users, authUser}), applyMiddleware(thunk));
 const App = connect()(AppComponent);
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <App />
     </Provider>,
   document.getElementById('root')
 );

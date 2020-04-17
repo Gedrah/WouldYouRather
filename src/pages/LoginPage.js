@@ -3,6 +3,7 @@ import "../css/LoginPage.css"
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import {handleInitialData} from "../App";
+import {setAuth} from "../actions/auth";
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class LoginPage extends React.Component {
     }
 
     signIn() {
+        this.props.login(this.state.currentUser);
         console.log("sign in")
     }
 
@@ -24,7 +26,6 @@ class LoginPage extends React.Component {
         } else {
             this.setState({currentUser: user});
         }
-        console.log(user);
     }
 
     componentWillMount() {
@@ -69,18 +70,20 @@ class LoginPage extends React.Component {
 
 LoginPage.propsTypes = {
     handleInitialData : PropTypes.func.isRequired,
-    users: PropTypes.Object
+    users: PropTypes.Object,
+    auth: PropTypes.Object
 };
 
-function mapStateToProps (users) {
+function mapStateToProps (state) {
     return {
-        users
+        users: state.users
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        handleInitialData: () => { dispatch(handleInitialData())}
+        handleInitialData: () => { dispatch(handleInitialData())},
+        login: (currentUserId) => { dispatch(setAuth(currentUserId)) },
     }
 }
 

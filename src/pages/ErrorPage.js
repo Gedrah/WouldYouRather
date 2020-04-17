@@ -9,7 +9,7 @@ export default class ErrorPage extends React.Component {
     render() {
         return (
             <div>
-                HomePage
+                ErrorPage
             </div>
         );
     }
