@@ -1,8 +1,4 @@
-import {
-    GET_USERS,
-    ADD_ANSWER_TO_USER,
-    ADD_QUESTION_TO_USER
-} from '../actions/users';
+import { GET_USERS, ADD_ANSWER_TO_USER, ADD_QUESTION_TO_USER } from '../actions/users';
 
 export default function users(state = {}, action) {
     if (action.type === GET_USERS) {

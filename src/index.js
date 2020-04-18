@@ -7,9 +7,10 @@ import {Provider, connect} from "react-redux";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import users from "./reducer/users";
 import authUser from "./reducer/auth";
+import questions from "./reducer/questions";
 import thunk from 'redux-thunk';
 
-const store = createStore(combineReducers({users, authUser}), applyMiddleware(thunk));
+const store = createStore(combineReducers({users, authUser, questions}), applyMiddleware(thunk));
 const App = connect()(AppComponent);
 
 ReactDOM.render(

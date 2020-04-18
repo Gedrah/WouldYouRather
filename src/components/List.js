@@ -1,15 +1,17 @@
 import React from 'react';
+import QuestionCard from "./QuestionCard";
 
 export default class List extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
     render() {
+        const { questions } = this.props;
+        console.log(questions);
         return (
             <div>
-                List
+                {
+                    Object.keys(questions).map((question) => {
+                        return <QuestionCard key={question} question={questions[question]}/>
+                    })
+                }
             </div>
         );
     }

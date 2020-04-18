@@ -6,11 +6,14 @@ import './App.css';
 import { getInitialData } from "./api";
 import { getUsers } from "./actions/users";
 import RouterManager from "./components/RouterManager";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import {getQuestions} from "./actions/questions";
 
 class App extends React.Component {
 
     componentDidMount() {
-        console.log(this.props);
+        this.props.handleInitialData();
     }
 
     render() {
@@ -25,14 +28,23 @@ class App extends React.Component {
     }
 }
 
-
+App.propsTypes = {
+    handleInitialData : PropTypes.func.isRequired,
+};
 
 export function handleInitialData() {
     return (dispatch) => {
-        return getInitialData().then((action) => {
-            dispatch(getUsers(action.users))
+        return getInitialData().then((datas) => {
+            dispatch(getUsers(datas.users));
+            dispatch(getQuestions(datas.questions));
         });
     }
 }
 
-export default App
+function mapDispatchToProps(dispatch) {
+    return {
+        handleInitialData: () => { dispatch(handleInitialData())}
+    }
+}
+
+export default connect(null, mapDispatchToProps)(App)

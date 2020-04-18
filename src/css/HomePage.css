@@ -1,0 +1,45 @@
+.home-page {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 600px;
+    border-radius: 5px;
+    margin-top: 50px;
+    height: auto;
+    padding-bottom: 10px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.tab-home {
+    display: flex;
+    justify-content: space-evenly;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+.tab-home button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    width: 100%;
+}
+
+.tab-home button:hover {
+    background-color: #ddd;
+}
+
+.tab-home button.active {
+    background-color: #ccc;
+}

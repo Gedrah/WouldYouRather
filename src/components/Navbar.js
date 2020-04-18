@@ -13,8 +13,8 @@ class Navbar extends React.Component {
         };
     }
 
-    goToQuestion() {
-        this.props.history.push('/question');
+    goToNewQuestion() {
+        this.props.history.push('/add');
     }
 
     goToHome() {
@@ -45,7 +45,7 @@ class Navbar extends React.Component {
             <div className="navbar">
                     <div className="navbar-routes">
                         <h2 className="navbar-route-home" onClick={() => this.goToHome()}>Would You Rather</h2>
-                        {auth ? <h2 className="navbar-routes-item" onClick={() => this.goToQuestion()}>New Question</h2> : ''}
+                        {auth ? <h2 className="navbar-routes-item" onClick={() => this.goToNewQuestion()}>New Question</h2> : ''}
                         {auth ? <h2 className="navbar-routes-item" onClick={() => this.goToLeaderBoard()}>Leader Board</h2> : ''}
                     </div>
                 {
