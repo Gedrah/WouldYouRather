@@ -2,31 +2,29 @@ import React from 'react';
 import "../css/QuestionCard.css";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
+import ViewPollSection from "./ViewPollSection";
+import ResultSection from "./ResultSection";
+import SubmitAnswerSection from "./SubmitAnswerSection";
 
 class QuestionCard extends React.Component {
-    goToPoll() {
-        const url = `/questions/${this.props.question.id}`;
-        this.props.history.push(url);
-    }
 
     render() {
-        const { question, users } = this.props;
+        const { question, users, section } = this.props;
         const author = users[question.author];
         return (
             <div className="question-card">
                 <div className="card">
                     <div className="card-title">
-                        <strong>{author.name} asks:</strong>
+                        {section === 'result' ? <strong>Asked by {author.name}</strong> :  <strong>{author.name} asks:</strong> }
                     </div>
                     <div className="card-content">
                         <div className="img-container">
                             <img height="150px" width="150px" src={author.avatarURL} alt={author.name}/>
                         </div>
                         <div className="poll-container">
-                            <h3>Would you rather</h3>
-                            <p>...{question.optionOne.text}...</p>
-                            <button onClick={() => this.goToPoll()} className="view-poll-button">View Poll</button>
+                            {section === 'viewPoll' ? <ViewPollSection question={question}/> : '' }
+                            {section === 'submit' ? <SubmitAnswerSection question={question}/> : '' }
+                            {section === 'result' ? <ResultSection question={question}/> : '' }
                         </div>
                     </div>
                 </div>
@@ -46,4 +44,4 @@ function mapStateToProps (state) {
     }
 }
 
-export default connect(mapStateToProps, null)(withRouter(QuestionCard))
+export default connect(mapStateToProps, null)(QuestionCard)

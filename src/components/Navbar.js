@@ -11,6 +11,7 @@ class Navbar extends React.Component {
         this.state = {
             showDropdown: false,
         };
+        console.log(props);
     }
 
     goToNewQuestion() {
@@ -39,14 +40,22 @@ class Navbar extends React.Component {
         }
     }
 
+    isCurrentRoute(route) {
+        return this.props.location.pathname === route;
+    }
+
     render() {
         const { currentUser, auth } = this.props;
         return (
             <div className="navbar">
                     <div className="navbar-routes">
                         <h2 className="navbar-route-home" onClick={() => this.goToHome()}>Would You Rather</h2>
-                        {auth ? <h2 className="navbar-routes-item" onClick={() => this.goToNewQuestion()}>New Question</h2> : ''}
-                        {auth ? <h2 className="navbar-routes-item" onClick={() => this.goToLeaderBoard()}>Leader Board</h2> : ''}
+                        {auth ? <h2 className="navbar-routes-item"
+                                    style={{fontWeight: this.isCurrentRoute('/add') ? 'bold' : ''}}
+                                    onClick={() => this.goToNewQuestion()}>New Question</h2> : ''}
+                        {auth ? <h2 className="navbar-routes-item"
+                                    style={{fontWeight: this.isCurrentRoute('/leaderboard') ? 'bold' : ''}}
+                                    onClick={() => this.goToLeaderBoard()}>Leader Board</h2> : ''}
                     </div>
                 {
                     auth &&

@@ -27,7 +27,6 @@ class HomePage extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         const questionsUnanswered = this.props.questions;
         const questionsAnswered = this.props.questions;
         return (
@@ -40,7 +39,7 @@ class HomePage extends React.Component {
                                 onClick={() => this.changeTabs(true)}>Answered Questions</button>
                     </div>
                     <div>
-                        <List questions={this.state.showAnswered ? questionsAnswered : questionsUnanswered }/>
+                        <List section={'viewPoll'} questions={this.state.showAnswered ? questionsAnswered : questionsUnanswered }/>
                     </div>
                 </div>
             </div>

@@ -1,17 +1,35 @@
 import React from 'react';
+import QuestionCard from "../components/QuestionCard";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
-export default class QuestionsPage extends React.Component {
+class QuestionsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
 
     render() {
-        console.log(this.props);
+        const { questions } = this.props;
+        const id = this.props.match.params.id;
         return (
             <div>
-                PollPage
+                <QuestionCard section={'result'} question={questions[id]}/>
             </div>
         );
     }
 }
+
+QuestionsPage.propsTypes = {
+    questions: PropTypes.Object
+};
+
+
+function mapStateToProps (state) {
+    return {
+        users: state.users,
+        questions: state.questions
+    }
+}
+
+export default connect(mapStateToProps, null)(QuestionsPage)
