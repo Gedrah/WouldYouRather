@@ -5,8 +5,6 @@ import PropTypes from "prop-types";
 import List from "../components/List";
 
 class HomePage extends React.Component {
-    questionsUnanswered = [];
-    questionsAnswered = [];
     constructor(props) {
         super(props);
         this.state = {showAnswered: false};
@@ -39,7 +37,8 @@ class HomePage extends React.Component {
                                 onClick={() => this.changeTabs(true)}>Answered Questions</button>
                     </div>
                     <div>
-                        <List section={'viewPoll'} questions={this.state.showAnswered ? questionsAnswered : questionsUnanswered }/>
+                        <List page={'home'} section={'viewPoll'}
+                              questions={this.state.showAnswered ? questionsAnswered : questionsUnanswered }/>
                     </div>
                 </div>
             </div>
