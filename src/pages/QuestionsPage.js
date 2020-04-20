@@ -9,12 +9,24 @@ class QuestionsPage extends React.Component {
         this.state = {};
     }
 
+    isQuestionAnswered(qid, currentUser) {
+        const answersId = Object.keys(currentUser.answers);
+        for (let i = 0; i < answersId.length; i++) {
+            if (qid === answersId[i]) {
+                return true
+            }
+        }
+        return false;
+    }
+
     render() {
-        const { questions } = this.props;
+        const { questions, currentUser } = this.props;
         const id = this.props.match.params.id;
+        const question = questions[id];
+        const isQuestionAnswered = this.isQuestionAnswered(id, currentUser);
         return (
             <div>
-                <QuestionCard section={'result'} question={questions[id]}/>
+                <QuestionCard section={isQuestionAnswered ? 'result' : 'submit'} question={question}/>
             </div>
         );
     }
@@ -29,7 +41,6 @@ QuestionsPage.propsTypes = {
 function mapStateToProps (state) {
     return {
         currentUser: state.users[state.authUser],
-        users: state.users,
         questions: state.questions
     }
 }

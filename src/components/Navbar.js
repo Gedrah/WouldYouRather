@@ -63,7 +63,7 @@ class Navbar extends React.Component {
                         {
                             this.state.showDropdown ?
                                 <div className="dropdown-content">
-                                    <div className="user-profile">Hello {currentUser.name}</div>
+                                    <div className="user-profile">Hello <strong>{currentUser.name}</strong></div>
                                     <a href="/login" onClick={() => this.logout() }>Logout</a>
                                 </div> : ''
                         }
