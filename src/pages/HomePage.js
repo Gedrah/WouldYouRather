@@ -16,17 +16,35 @@ class HomePage extends React.Component {
         }
     }
 
-    getUnansweredQuestion() {
-
+    getUnansweredQuestion(questions, answeredQuestions) {
+        return Object.values(questions).filter((question) => {
+            for (let i = 0; i < answeredQuestions.length; i++) {
+                if (answeredQuestions[i].id === question.id)
+                    return false;
+            }
+            return true;
+        }).sort((firstQuestion, secondQuestion) => {
+                return secondQuestion.timestamp - firstQuestion.timestamp
+            });
     }
 
-    getAnsweredQuestion() {
-
+    getAnsweredQuestion(questions, currentUser) {
+        const answeredQuid = Object.keys(currentUser.answers);
+        return Object.values(questions).filter((question) => {
+            for (let i = 0; i < answeredQuid.length; i++) {
+                if (answeredQuid[i] === question.id)
+                    return true;
+            }
+            return false;
+        }).sort((firstQuestion, secondQuestion) => {
+            return secondQuestion.timestamp - firstQuestion.timestamp
+        });
     }
 
     render() {
-        const questionsUnanswered = this.props.questions;
-        const questionsAnswered = this.props.questions;
+        const { questions, currentUser } = this.props;
+        const questionsAnswered = this.getAnsweredQuestion(questions, currentUser);
+        const questionsUnanswered = this.getUnansweredQuestion(questions, questionsAnswered);
         return (
             <div className="home-page">
                 <div className="card">
@@ -48,12 +66,14 @@ class HomePage extends React.Component {
 
 HomePage.propsTypes = {
     users: PropTypes.Object,
-    questions: PropTypes.Object
+    questions: PropTypes.Object,
+    currentUser: PropTypes.Object
 };
 
 
 function mapStateToProps (state) {
     return {
+        currentUser: state.users[state.authUser],
         users: state.users,
         questions: state.questions
     }

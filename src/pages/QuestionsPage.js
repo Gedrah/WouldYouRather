@@ -21,12 +21,14 @@ class QuestionsPage extends React.Component {
 }
 
 QuestionsPage.propsTypes = {
-    questions: PropTypes.Object
+    questions: PropTypes.Object,
+    currentUser: PropTypes.String
 };
 
 
 function mapStateToProps (state) {
     return {
+        currentUser: state.users[state.authUser],
         users: state.users,
         questions: state.questions
     }

@@ -11,7 +11,6 @@ class Navbar extends React.Component {
         this.state = {
             showDropdown: false,
         };
-        console.log(props);
     }
 
     goToNewQuestion() {
