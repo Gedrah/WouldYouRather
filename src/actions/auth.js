@@ -1,5 +1,5 @@
-export const SET_AUTH = 'SET_AUTHED';
-export const UNSET_AUTH = 'UNSET_AUTHED';
+export const SET_AUTH = 'SET_AUTH';
+export const UNSET_AUTH = 'UNSET_AUTH';
 
 
 export function setAuth(id) {

@@ -22,7 +22,7 @@ class QuestionsPage extends React.Component {
 
     isQuestionExist(questions, questionId) {
         let questionExist = false;
-        Object.keys(questions).map((id) => {
+        Object.keys(questions).forEach((id) => {
             if (id === questionId) {
                 questionExist = true;
             }
