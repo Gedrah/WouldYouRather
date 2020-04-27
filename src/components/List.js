@@ -15,8 +15,8 @@ export default class List extends React.Component {
                 }
                 {
                     page === 'leaderboard' &&
-                    Object.keys(users).map((id) => {
-                        return <LeaderCard key={id} user={users[id]}/>
+                    Object.keys(users).map((id, index) => {
+                        return <LeaderCard key={id} user={users[id]} index={index + 1}/>
                     })
                 }
             </div>

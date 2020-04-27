@@ -20,8 +20,8 @@ class ResultSection extends React.Component {
         const isAnsweredOptionOne = this.answeredOption(currentUser.answers[question.id], 'optionOne');
         const isAnsweredOptionTwo = this.answeredOption(currentUser.answers[question.id], 'optionTwo');
 
-        const percentageVotesOptionOne = votesOptionOne / totalVotes * 100;
-        const percentageVotesOptionTwo = votesOptionTwo / totalVotes * 100;
+        const percentageVotesOptionOne = (votesOptionOne / totalVotes * 100).toFixed(0);
+        const percentageVotesOptionTwo = (votesOptionTwo / totalVotes * 100).toFixed();
 
         const styles = this.createStyleSheet(percentageVotesOptionOne, percentageVotesOptionTwo);
         return (

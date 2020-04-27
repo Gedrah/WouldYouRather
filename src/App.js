@@ -32,7 +32,7 @@ App.propsTypes = {
     handleInitialData : PropTypes.func.isRequired,
 };
 
-export function handleInitialData() {
+export function getRatherDatas() {
     return (dispatch) => {
         return getInitialData().then((datas) => {
             dispatch(getUsers(datas.users));
@@ -43,7 +43,7 @@ export function handleInitialData() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        handleInitialData: () => { dispatch(handleInitialData())}
+        handleInitialData: () => { dispatch(getRatherDatas())}
     }
 }
 

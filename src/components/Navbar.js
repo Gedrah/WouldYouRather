@@ -18,9 +18,7 @@ class Navbar extends React.Component {
     }
 
     goToHome() {
-        if (this.props.auth) {
-            this.props.history.push('/home');
-        }
+        this.props.history.push('/home');
     }
 
     goToLeaderBoard() {
@@ -48,7 +46,9 @@ class Navbar extends React.Component {
         return (
             <div className="navbar">
                     <div className="navbar-routes">
-                        <h2 className="navbar-route-home" onClick={() => this.goToHome()}>Would You Rather</h2>
+                        <h2 className="navbar-route-home"
+                            style={{fontWeight: this.isCurrentRoute('/home') ? 'bold' : '400'}}
+                            onClick={() => this.goToHome()}>Would You Rather</h2>
                         {auth ? <h2 className="navbar-routes-item"
                                     style={{fontWeight: this.isCurrentRoute('/add') ? 'bold' : ''}}
                                     onClick={() => this.goToNewQuestion()}>New Question</h2> : ''}

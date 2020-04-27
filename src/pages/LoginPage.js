@@ -12,10 +12,12 @@ class LoginPage extends React.Component {
 
     signIn() {
         this.props.login(this.state.currentUser);
-    }
-
-    createAccount() {
-        console.log("create account")
+        if (this.props.location.search) {
+            const url = this.props.location.search.replace('?url=', '');
+            this.props.history.push(url);
+        } else {
+            this.props.history.push('/home');
+        }
     }
 
     changeCurrentUser(user) {
@@ -55,7 +57,6 @@ class LoginPage extends React.Component {
                         <button disabled={!currentUser}
                                 style={{backgroundColor: currentUser ? '' : '#cccccc', cursor: currentUser ? 'pointer' : 'default'}}
                                 onClick={() => this.signIn()} className="sign-in-button">Sign in</button>
-                        <span onClick={() => this.createAccount()} className="create-account">Create an account</span>
                     </div>
                 </div>
             </div>

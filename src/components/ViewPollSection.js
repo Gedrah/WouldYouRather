@@ -4,6 +4,7 @@ import {withRouter} from "react-router";
 class ViewPollSection extends React.Component {
     goToPoll() {
         const url = `/questions/${this.props.question.id}`;
+        console.log(url);
         this.props.history.push(url);
     }
 

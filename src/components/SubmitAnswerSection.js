@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import '../css/SubmitAnswerSection.css'
+import {_saveQuestionAnswer} from "../_DATA";
+import {addQuestionAnswer} from "../actions/questions";
+import {addUserAnswer} from "../actions/users";
 
 class SubmitAnswerSection extends React.Component {
     constructor(props) {
@@ -12,8 +15,8 @@ class SubmitAnswerSection extends React.Component {
     }
 
     submitAnswer() {
-        console.log('answer submitted for ' + this.props.question.id);
-        console.log(this.state.answer)
+        const {saveAnswer, question} = this.props;
+        saveAnswer(question.id, this.state.answer);
     }
 
     selectAnswer(answer) {
@@ -44,6 +47,21 @@ SubmitAnswerSection.propsTypes = {
     auth: PropTypes.Object
 };
 
+function addNewAnswer(questionId, answer) {
+    return (dispatch, getState) => {
+        const { authUser } = getState();
+        return _saveQuestionAnswer({
+            authedUser: authUser,
+            qid: questionId,
+            answer
+        }).then(() => {
+            dispatch(addQuestionAnswer(authUser, questionId, answer));
+            dispatch(addUserAnswer(authUser, questionId, answer))
+        })
+
+    }
+}
+
 function mapStateToProps (state) {
     return {
         users: state.users,
@@ -51,4 +69,11 @@ function mapStateToProps (state) {
     }
 }
 
-export default connect(mapStateToProps, null)(SubmitAnswerSection)
+function mapDispatchToProps(dispatch) {
+    return {
+        saveAnswer: (questionId, answer) => { dispatch(addNewAnswer(questionId, answer)) },
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubmitAnswerSection)

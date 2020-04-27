@@ -3,16 +3,32 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {addQuestion} from "../actions/questions";
 import {withRouter} from "react-router-dom";
+import {addQuestionToUser} from "../actions/users";
+import {_saveQuestion} from "../_DATA";
 
 class NewQuestionPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            optionOne: '',
+            optionTwo: ''
+        };
     }
 
     createQuestion() {
-        this.props.addQuestion(this.props.currentUser.id);
+        const {optionOne, optionTwo} = this.state;
+        if (optionTwo !== '' && optionOne !== '') {
+            this.props.addQuestion(optionOne, optionTwo);
+            this.props.history.push('/home');
+        }
+    }
 
+    updateOptionOne(evt) {
+        this.setState({optionOne: evt.target.value})
+    }
+
+    updateOptionTwo(evt) {
+        this.setState({optionTwo: evt.target.value})
     }
 
     render() {
@@ -23,12 +39,14 @@ class NewQuestionPage extends React.Component {
                         <h1>Create a new question</h1>
                         <div>
                             <label>Would you rather...</label>
-                            <input className="username" placeholder="Option 1"/>
+                            <input value={this.state.optionOne} onChange={evt => this.updateOptionOne(evt)}
+                                   className="username" placeholder="Option 1"/>
                         </div>
                         <h1>or</h1>
                         <div>
                             <label>Would you rather...</label>
-                            <input className="username" placeholder="Option 2"/>
+                            <input value={this.state.optionTwo} onChange={evt => this.updateOptionTwo(evt)}
+                                   className="username" placeholder="Option 2"/>
                         </div>
                         <button onClick={() => this.createQuestion()} className="sign-in-button">Submit</button>
                     </div>
@@ -43,6 +61,21 @@ NewQuestionPage.propsTypes = {
     addQuestion: PropTypes.Object,
 };
 
+function addNewQuestion(optionOne, optionTwo) {
+    return (dispatch, getState) => {
+        const { authUser } = getState();
+        return _saveQuestion({
+            optionOneText: optionOne,
+            optionTwoText: optionTwo,
+            author: authUser
+        }).then((question) => {
+                dispatch(addQuestion(question));
+                dispatch(addQuestionToUser(authUser, question.id))
+            })
+
+    }
+}
+
 function mapStateToProps (state) {
     return {
         currentUser: state.users[state.authUser],
@@ -51,7 +84,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        addQuestion: (currentUserId) => { dispatch(addQuestion(currentUserId)) },
+        addQuestion: (optionOne, optionTwo) => { dispatch(addNewQuestion(optionOne, optionTwo)) },
     }
 }
 

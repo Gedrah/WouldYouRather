@@ -2,6 +2,7 @@ import React from 'react';
 import QuestionCard from "../components/QuestionCard";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {Redirect} from "react-router";
 
 class QuestionsPage extends React.Component {
     constructor(props) {
@@ -19,14 +20,30 @@ class QuestionsPage extends React.Component {
         return false;
     }
 
+    isQuestionExist(questions, questionId) {
+        let questionExist = false;
+        Object.keys(questions).map((id) => {
+            if (id === questionId) {
+                questionExist = true;
+            }
+        });
+        return questionExist;
+    }
+
     render() {
         const { questions, currentUser } = this.props;
         const id = this.props.match.params.id;
         const question = questions[id];
         const isQuestionAnswered = this.isQuestionAnswered(id, currentUser);
+        const isQuestionIdExist = this.isQuestionExist(questions, id);
+
         return (
             <div>
-                <QuestionCard section={isQuestionAnswered ? 'result' : 'submit'} question={question}/>
+                {
+                    isQuestionIdExist ?
+                        <QuestionCard section={isQuestionAnswered ? 'result' : 'submit'} question={question}/>
+                        : <Redirect to={{pathname: '/error'}}/>
+                }
             </div>
         );
     }
