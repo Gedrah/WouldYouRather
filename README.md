@@ -1,8 +1,9 @@
 ## Would you rather
 
-Would you rather is a web app made using React and Redux. It lets you connect with an user account (pre-registered) and answer polls.
-You can choose between answered and non-answered questions.
-The one that was already answered will show all choices made by users and the other one will let you choose between two answers.
+Would you rather is a web app made using React and Redux.<br/>
+It lets you connect with an user account (pre-registered) and answer polls.<br/>
+You can choose between answered and non-answered questions.<br/>
+The one that was already answered will show all choices made by users and the other one will let you choose between two answers.<br/>
 You can navigate to the home page (by click on the name of the application), leaderboard page, create a new question and finally logout by clicking on the user avatar and select logout.
 
 ## Available Scripts
